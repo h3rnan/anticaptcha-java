@@ -23,9 +23,9 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, MalformedURLException, JSONException {
         //exampleGetBalance();
         //exampleImageToText();
-        exampleNoCaptchaProxyless();
+        //exampleNoCaptchaProxyless();
         exampleRecaptchaV3Proxyless();
-        exampleNoCaptcha();
+        //exampleNoCaptcha();
         //exampleCustomCaptcha();
         //exampleFuncaptcha();
         //exampleGeeTestProxyless();
@@ -96,24 +96,28 @@ public class Main {
     }
 
     private static void exampleRecaptchaV3Proxyless() throws MalformedURLException, InterruptedException {
+        long startTime = System.currentTimeMillis();
         DebugHelper.setVerboseMode(true);
 
         RecaptchaV3Proxyless api = new RecaptchaV3Proxyless();
-        api.setClientKey("1234567890123456789012");
-        api.setWebsiteUrl(new URL("http://www.supremenewyork.com"));
-        api.setWebsiteKey("6Leva6oUAAAAAMFYqdLAI8kJ5tw7BtkHYpK10RcD");
-        api.setPageAction("testPageAction");
+        api.setClientKey("7674c866b458c4d5a8ab23b910e89725");
+        api.setWebsiteUrl(new URL("https://oficinajudicialvirtual.pjud.cl/indexN.php"));
+        api.setWebsiteKey("6LelLWkUAAAAANPDMkBxllo_QJe5RQVpg6V2pIDt");
+        api.setPageAction("validate_captcha_rit");
 
         if (!api.createTask()) {
             DebugHelper.out(
                     "API v2 send failed. " + api.getErrorMessage(),
                     DebugHelper.Type.ERROR
             );
-        } else if (!api.waitForResult()) {
+        }     if (!api.waitForResult()) {
             DebugHelper.out("Could not solve the captcha.", DebugHelper.Type.ERROR);
         } else {
             DebugHelper.out("Result: " + api.getTaskSolution().getGRecaptchaResponse(), DebugHelper.Type.SUCCESS);
         }
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println("Execution time in milliseconds: " + timeElapsed);
     }
 
     private static void exampleNoCaptcha() throws MalformedURLException, InterruptedException {
